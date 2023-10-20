@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Activity4</string>
+    <string name="laki">Laki Laki</string>
+    <string name="wanita">Perempuan</string>
+    <string name="wanita02">Netral</string>
+    <string name="submit">submit</string>
+</resources>
