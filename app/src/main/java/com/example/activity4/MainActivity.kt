@@ -89,6 +89,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
     var textNama by remember { mutableStateOf("")}
     var textTlp by remember { mutableStateOf("")}
+    var textAlmt by remember { mutableStateOf("")}
 
     val context = LocalContext.current
     val dataForm: DataForm
@@ -117,6 +118,17 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             textTlp = it
         }
     )
+    OutlinedTextField(
+        value = textAlmt,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Alamat")},
+        onValueChange = {
+            textAlmt = it
+        }
+    )
     SelectJK(
         option = jenis.map { id -> context.resources.getString(id) },
         onSelectionChaanged = {cobaViewModel.setJenisK(it)}
@@ -124,7 +136,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp, dataForm.sex)
+            cobaViewModel.insertData(textNama, textTlp, textAlmt, dataForm.sex)
         }
     ){
         Text(
@@ -136,7 +148,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
-        jenisnya = cobaViewModel.jenisKl
+        jenisnya = cobaViewModel.jenisKl,
+        alamatnya = cobaViewModel.Alamat
     )
 }
 
@@ -178,7 +191,7 @@ fun SelectJK(
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -197,6 +210,11 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String){
             text = "Jenis Kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
+        Text(
+            text = "Alamat : " + alamatnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        )
+
 
     }
 
