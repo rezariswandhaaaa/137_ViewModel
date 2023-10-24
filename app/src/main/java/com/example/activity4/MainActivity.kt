@@ -121,7 +121,6 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     OutlinedTextField(
         value = textAlmt,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
         label = { Text(text = "Alamat")},
@@ -148,8 +147,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
-        jenisnya = cobaViewModel.jenisKl,
-        alamatnya = cobaViewModel.Alamat
+        alamatnya = cobaViewModel.Alamat,
+        jenisnya = cobaViewModel.jenisKl
     )
 }
 
@@ -191,7 +190,7 @@ fun SelectJK(
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String){
+fun TextHasil(namanya: String, telponnya: String, alamatnya: String, jenisnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -207,15 +206,13 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: S
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(
-            text = "Jenis Kelamin : " + jenisnya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-        )
-        Text(
             text = "Alamat : " + alamatnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
-
-
+        Text(
+            text = "Jenis Kelamin : " + jenisnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        )
     }
 
 }
