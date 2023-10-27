@@ -145,14 +145,12 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             textAlmt = it
         }
     )
-    Text(
-        text = "Jenis Kelamin :",
-
-    )
+    Text(text = "Jenis Kelamin :")
     SelectJK(
         option = jenis.map { id -> context.resources.getString(id) },
         onSelectionChaanged = { cobaViewModel.setJenisK(it) }
     )
+    Text(text = "Status :")
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
@@ -183,7 +181,7 @@ fun SelectJK(
 ){
     var selectedValue by rememberSaveable { mutableStateOf("")}
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.padding(2.dp)) {
         option.forEach { item ->
             Row (
                 modifier = Modifier.selectable(
