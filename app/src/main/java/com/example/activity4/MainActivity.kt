@@ -145,7 +145,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             textAlmt = it
         }
     )
-    Text(text = "")
+    Text(
+        text = "Jenis Kelamin :",
+
+    )
     SelectJK(
         option = jenis.map { id -> context.resources.getString(id) },
         onSelectionChaanged = { cobaViewModel.setJenisK(it) }
@@ -216,14 +219,7 @@ fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: S
         ),
         modifier = Modifier.fillMaxWidth()
     ){
-        Text(
-            text = "Nama : " + namanya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-        )
-        Text(
-            text = "Telpon : " + telponnya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-        )
+
         Text(
             text = "Email : " + emailnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
