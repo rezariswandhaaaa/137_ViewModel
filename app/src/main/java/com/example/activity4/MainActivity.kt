@@ -89,6 +89,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
     var textNama by remember { mutableStateOf("")}
     var textTlp by remember { mutableStateOf("")}
+    var textEmail by remember { mutableStateOf("")}
     var textAlmt by remember { mutableStateOf("")}
 
     val context = LocalContext.current
@@ -96,12 +97,17 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     val uiState by cobaViewModel.uiState.collectAsState()
     dataForm = uiState
 
+    Text(
+        text = "Create your Account",
+        fontSize = 25.sp
+    )
+
     OutlinedTextField(
         value = textNama,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Nama Lengkap")},
+        label = { Text(text = "Username")},
         onValueChange = {
             textNama = it
         }
@@ -119,6 +125,17 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         }
     )
     OutlinedTextField(
+        value = textEmail,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Email")},
+        onValueChange = {
+            textEmail = it
+        }
+    )
+
+    OutlinedTextField(
         value = textAlmt,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
@@ -128,14 +145,15 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             textAlmt = it
         }
     )
+    Text(text = "")
     SelectJK(
         option = jenis.map { id -> context.resources.getString(id) },
-        onSelectionChaanged = {cobaViewModel.setJenisK(it)}
+        onSelectionChaanged = { cobaViewModel.setJenisK(it) }
     )
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp, textAlmt, dataForm.sex)
+            cobaViewModel.insertData(textNama, textTlp, textEmail,textAlmt, dataForm.sex)
         }
     ){
         Text(
@@ -147,6 +165,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
+        emailnya = cobaViewModel.Email,
         alamatnya = cobaViewModel.Alamat,
         jenisnya = cobaViewModel.jenisKl
     )
@@ -190,7 +209,7 @@ fun SelectJK(
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, alamatnya: String, jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: String, jenisnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -202,11 +221,15 @@ fun TextHasil(namanya: String, telponnya: String, alamatnya: String, jenisnya: S
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
         Text(
-            text = "Telepon :" + telponnya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+            text = "Telpon : " + telponnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
         Text(
-            text = "Alamat : " + alamatnya,
+            text = "Email : " + emailnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+        )
+        Text(
+            text = "Alamatnya :" + alamatnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(
