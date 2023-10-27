@@ -92,6 +92,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     var textEmail by remember { mutableStateOf("")}
     var textAlmt by remember { mutableStateOf("")}
 
+
     val context = LocalContext.current
     val dataForm: DataForm
     val uiState by cobaViewModel.uiState.collectAsState()
@@ -151,6 +152,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         onSelectionChaanged = { cobaViewModel.setJenisK(it) }
     )
     Text(text = "Status :")
+
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
@@ -171,7 +173,6 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         jenisnya = cobaViewModel.jenisKl
     )
 }
-
 
 
 @Composable
@@ -230,6 +231,7 @@ fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: S
             text = "Jenis Kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
+
     }
 
 }

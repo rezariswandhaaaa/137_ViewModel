@@ -1,5 +1,6 @@
 package com.example.activity4
 
+import android.support.v4.os.IResultReceiver._Parcel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -22,29 +23,24 @@ class CobaViewModel : ViewModel() {
         private set
     var jenisKl: String by mutableStateOf("")
         private set
-    var Stats: String by mutableStateOf("")
-        private set
+
 
     private val _uiState = MutableStateFlow(DataForm())
     val uiState: StateFlow<DataForm> = _uiState.asStateFlow()
 
 
-
-    fun insertData(nm: String, tlp: String, eml: String,almt: String, jk: String, Sts: String){
+    fun insertData(nm: String, tlp: String, eml: String,almt: String, jk: String, ){
         namaUsr = nm;
         noTlp = tlp;
         Email = eml;
         Alamat = almt;
         jenisKl = jk;
-        Stats = Sts;
-    }
 
+    }
     fun setJenisK(pilihJK: String) {
         _uiState.update { currentState -> currentState.copy(sex = pilihJK) }
     }
 
-    fun setStatS(pilihSTS: String){
-        _uiState.update { currentState -> currentState.copy(status = pilihSTS)}
-    }
+
 
 }
