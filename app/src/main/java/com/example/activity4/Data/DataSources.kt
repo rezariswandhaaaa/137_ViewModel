@@ -7,5 +7,10 @@ object DataSources {
         R.string.laki,
         R.string.wanita
     )
+    val Stats = listOf(
+        R.string.blm,
+        R.string.sudah
+    )
+
 
 }

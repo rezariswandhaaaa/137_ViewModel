@@ -35,12 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.activity4.Data.DataForm
+import com.example.activity4.Data.DataSources.Stats
 import com.example.activity4.Data.DataSources.jenis
 import com.example.activity4.ui.theme.Activity4Theme
 import kotlinx.coroutines.selects.select
@@ -100,7 +102,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
     Text(
         text = "Create your Account",
-        fontSize = 25.sp
+        fontSize = 25.sp,
+        fontWeight = FontWeight.Bold
     )
 
     OutlinedTextField(
@@ -152,11 +155,14 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         onSelectionChaanged = { cobaViewModel.setJenisK(it) }
     )
     Text(text = "Status :")
-
+    STS(
+        option = Stats.map { id -> context.resources.getString(id) },
+        onSelectionChaanged = { cobaViewModel.setSTATUS(it) }
+    )
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp, textEmail,textAlmt, dataForm.sex)
+            cobaViewModel.insertData(textNama, textTlp, textEmail,textAlmt, dataForm.sex, dataForm.stat)
         }
     ){
         Text(
@@ -164,13 +170,14 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             fontSize = 16.sp
         )
     }
-    Spacer(modifier = Modifier.height(100.dp))
+    Spacer(modifier = Modifier.height(2.dp))
     TextHasil(
         namanya = cobaViewModel.namaUsr,
         telponnya = cobaViewModel.noTlp,
         emailnya = cobaViewModel.Email,
         alamatnya = cobaViewModel.Alamat,
-        jenisnya = cobaViewModel.jenisKl
+        jenisnya = cobaViewModel.jenisKl,
+        statusnya = cobaViewModel.statS
     )
 }
 
@@ -182,7 +189,9 @@ fun SelectJK(
 ){
     var selectedValue by rememberSaveable { mutableStateOf("")}
 
-    Column(modifier = Modifier.padding(2.dp)) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        ) {
         option.forEach { item ->
             Row (
                 modifier = Modifier.selectable(
@@ -199,7 +208,8 @@ fun SelectJK(
                     onClick = {
                         selectedValue = item
                         onSelectionChaanged(item)
-                    }
+                    },
+
                 )
                 Text(item)
             }
@@ -211,10 +221,10 @@ fun SelectJK(
 
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: String, jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: String, jenisnya: String, statusnya: String){
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
+            defaultElevation = 5.dp
         ),
         modifier = Modifier.fillMaxWidth()
     ){
@@ -224,16 +234,56 @@ fun TextHasil(namanya: String, telponnya: String, emailnya: String, alamatnya: S
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
         Text(
-            text = "Alamatnya :" + alamatnya,
+            text = "Alamat :" + alamatnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(
             text = "Jenis Kelamin : " + jenisnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
         )
+        Text(
+            text = "Status : " + statusnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        )
 
     }
 
+}
+
+
+
+@Composable
+fun STS(
+    option: List<String>,
+    onSelectionChaanged: (String) -> Unit = {}
+){
+    var selectedValue by rememberSaveable { mutableStateOf("")}
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        option.forEach { item ->
+            Row (
+                modifier = Modifier.selectable(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChaanged(item)
+                    }
+                ),
+               verticalAlignment = Alignment.CenterVertically
+            ){
+                RadioButton(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChaanged(item)
+                    },
+                    )
+                Text(item)
+            }
+        }
+    }
 }
 
 
